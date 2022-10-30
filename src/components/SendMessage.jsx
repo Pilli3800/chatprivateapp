@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CryptoJS from "crypto-js";
-import { auth, db } from "../firebase";
+import { auth, db } from "../services/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 const style = {

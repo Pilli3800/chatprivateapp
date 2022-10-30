@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import Chat from './components/Chat';
 
-import { auth } from "./firebase.js";
+import { auth } from "./services/firebase.js";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const style = {
