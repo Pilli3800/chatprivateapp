@@ -1,38 +1,25 @@
-import React, { useState } from "react";
-import "./App.css";
-import { db } from "./Firebase";
-import { useChat } from "./useChat";
+import React from 'react';
+import Navbar from './components/Navbar';
+import Chat from './components/Chat';
+
+import { auth } from './firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
+const style = {
+  appContainer: `max-w-[728px] mx-auto text-center`,
+  sectionContainer: `flex flex-col h-[90vh] bg-gray-100 mt-10 shadow-xl border relative`,
+};
 
 function App() {
-  const [message, setMessage] = useState("");
-  const { loading, messages, error } = useChat();
-
-  const sendMesage = (e) => {
-    e.preventDefault();
-
-    db.collection("messages").add({
-      timestamp: Date.now(),
-      message,
-    });
-  };
-
+  const [user] = useAuthState(auth);
+  //  console.log(user)
   return (
-    <div className="App">
-      <div className="App-header">
-        <p>Escribe tu mensaje...</p>
-        <form>
-          <input value={message} onChange={(e) => setMessage(e.target.value)} />
-          <button type="submit" onPress={sendMesage}>
-            Enviar Mensaje
-          </button>
-        </form>
-        <ul>
-          {console.log("Mensahjes", message)}
-          {message.map((m) => {
-            <li key={m.id}>{m.message}</li>;
-          })}
-        </ul>
-      </div>
+    <div className={style.appContainer}>
+      <section className='{style.sectionContainer}'>
+        {/* Navbar */}
+        <Navbar />
+        {user ? <Chat /> : null}
+      </section>
     </div>
   );
 }
